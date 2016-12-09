@@ -4,8 +4,9 @@
 
 struct Country
 {
-    int coord1;
-    int coord2;
+    int y;
+    int x;
+    int owner;
     int troops;
 };
 
@@ -22,6 +23,8 @@ int main(void)
 
     int width = 15;
     char coords[width][width];
+    struct Country countryArray[64];
+
     for(int i = 0; i <= width; ++i)
     {
         chance = rand() % 20;
@@ -29,31 +32,109 @@ int main(void)
     
         while(repeat < 4)
         {
-            for(int i = 0; i <= width; ++i)
+            for(int i2 = 0; i2 <= width; ++i2)
             {
-                if(i == chance)
+////////////////////////////////////////////////
+
+                if(repeat == 0)
                 {
-                    flag1 = 1;
-                    printf("%02d##%02d", countrynum, countrynum);
-                }
-                if(i == chance2)
-                {
-                    flag2 = 1;
-                    if(chance <= 15)
+                    if(i2 == chance)
                     {
-                        printf("%02d##%02d", countrynum + 1, countrynum + 1);
+                        flag1 = 1;
+                        printf("C:%02d", countrynum);
+                        countryArray[countrynum].y = i;
+                        countryArray[countrynum].x = i2;
+                        countryArray[countrynum].troops = 0;
+                        countryArray[countrynum].owner = 0;
+                    }
+                    if(i2 == chance2)
+                    {
+                        flag2 = 1;
+                        if(chance <= 15)
+                        {
+                            printf("C:%02d", countrynum + 1);
+                            countryArray[countrynum].y = i;
+                            countryArray[countrynum].x = i2;
+                            countryArray[countrynum].troops = 0;
+                            countryArray[countrynum].owner = 0;
+                        }
+                        else
+                        {
+                            printf("C:%02d!", countrynum);
+                            countryArray[countrynum].y = i;
+                            countryArray[countrynum].x = i2;
+                            countryArray[countrynum].troops = 0;
+                            countryArray[countrynum].owner = 0;
+                        }
                     }
                     else
                     {
-                        printf("%02d##%02d", countrynum, countrynum);
+                    printf("%s", "~~~~");
+                    }
+                }
+///////////////////////////////////////////////////
+
+                if(repeat == 1)
+                {
+                    if(i2 == chance)
+                    {
+                        flag1 = 1;
+                        printf("O:%02d", countryArray[countrynum].owner);
+                    }
+                    if(i2 == chance2)
+                    {
+                        flag2 = 1;
+                        printf("O:%02d", countryArray[countrynum].owner);
+
+                    }
+                    else
+                    {
+                    printf("%s", "~~~~");
                     }
                 }
 
-                else
+
+                if(repeat == 2)
                 {
-                printf("%s", "~~~~");
+                    if(i2 == chance)
+                    {
+                        flag1 = 1;
+                        printf("T:%02d", countryArray[countrynum].troops);
+                    }
+                    if(i2 == chance2)
+                    {
+                        flag2 = 1;
+                        printf("T:%02d", countryArray[countrynum].troops);
+
+                    }
+                    else
+                    {
+                    printf("%s", "~~~~");
+                    }
+                }
+
+
+                if(repeat == 3)
+                {
+                    if(i2 == chance)
+                    {
+                        flag1 = 1;
+                        printf("####");
+                    }
+                    if(i2 == chance2)
+                    {
+                        flag2 = 1;
+                        printf("####");
+
+                    }
+                    else
+                    {
+                    printf("%s", "~~~~");
+                    }
                 }
             }
+
+////////////////////////////////////////////////////
         ++repeat;
         puts("");
         }

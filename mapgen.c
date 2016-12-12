@@ -2,6 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 
+
 struct Country
 {
     int y;
@@ -10,11 +11,26 @@ struct Country
     int troops;
 };
 
+void load(struct Country *countryArray)
+{
+
+    int index = 1;
+    
+    while(index < 18)
+    {
+        int y = countryArray[index].y;
+        int x = countryArray[index].x;
+        printf("%d / %d\n", x, y);
+        ++index;
+    }
+
+}
+
 int main(void)
 {
     int flag1 = 0;
     int flag2 = 0;
-    int countrynum = 1;
+    int countrynum = 0;
     srand(time(NULL) + clock());
     int chance = rand() % 20;
     int chance2 = rand() % 30;
@@ -23,7 +39,7 @@ int main(void)
 
     int width = 15;
     char coords[width][width];
-    struct Country countryArray[64];
+    struct Country *countryArray = calloc(64, 8);
 
     for(int i = 0; i <= width; ++i)
     {
@@ -41,31 +57,28 @@ int main(void)
                     if(i2 == chance)
                     {
                         flag1 = 1;
+
+                        ++countrynum;
+
                         printf("C:%02d", countrynum);
                         countryArray[countrynum].y = i;
                         countryArray[countrynum].x = i2;
-                        countryArray[countrynum].troops = 0;
+                        countryArray[countrynum].troops = 42;
                         countryArray[countrynum].owner = 0;
                     }
                     if(i2 == chance2)
                     {
                         flag2 = 1;
-                        if(chance <= 15)
-                        {
-                            printf("C:%02d", countrynum + 1);
-                            countryArray[countrynum].y = i;
-                            countryArray[countrynum].x = i2;
-                            countryArray[countrynum].troops = 0;
-                            countryArray[countrynum].owner = 0;
-                        }
-                        else
-                        {
-                            printf("C:%02d!", countrynum);
-                            countryArray[countrynum].y = i;
-                            countryArray[countrynum].x = i2;
-                            countryArray[countrynum].troops = 0;
-                            countryArray[countrynum].owner = 0;
-                        }
+
+                        ++countrynum;
+
+                        
+                        printf("C:%02d", countrynum);
+                        countryArray[countrynum].y = i;
+                        countryArray[countrynum].x = i2;
+                        countryArray[countrynum].troops = 44;
+                        countryArray[countrynum].owner = 0;
+                        
                     }
                     else
                     {
@@ -74,16 +87,14 @@ int main(void)
                 }
 ///////////////////////////////////////////////////
 
-                if(repeat == 1)
+                else if(repeat == 1)
                 {
                     if(i2 == chance)
                     {
-                        flag1 = 1;
                         printf("O:%02d", countryArray[countrynum].owner);
                     }
                     if(i2 == chance2)
                     {
-                        flag2 = 1;
                         printf("O:%02d", countryArray[countrynum].owner);
 
                     }
@@ -94,16 +105,14 @@ int main(void)
                 }
 
 
-                if(repeat == 2)
+                else if(repeat == 2)
                 {
                     if(i2 == chance)
                     {
-                        flag1 = 1;
                         printf("T:%02d", countryArray[countrynum].troops);
                     }
                     if(i2 == chance2)
                     {
-                        flag2 = 1;
                         printf("T:%02d", countryArray[countrynum].troops);
 
                     }
@@ -114,16 +123,14 @@ int main(void)
                 }
 
 
-                if(repeat == 3)
+                else if(repeat == 3)
                 {
                     if(i2 == chance)
                     {
-                        flag1 = 1;
                         printf("####");
                     }
                     if(i2 == chance2)
                     {
-                        flag2 = 1;
                         printf("####");
 
                     }
@@ -138,16 +145,14 @@ int main(void)
         ++repeat;
         puts("");
         }
-    if(flag1 || flag2)
-    {
-        countrynum = countrynum + flag1 + flag2;
-    }
+
     repeat = 0;
     flag1 = 0;
     flag2 = 0;
     
     }
     printf("Number of Countries: %d\n", countrynum - 1);
+    load(countryArray);
 }
 
 /*

@@ -11,6 +11,7 @@ struct Country
     int troops;
 };
 
+/*
 void load(struct Country *countryArray)
 {
 
@@ -25,6 +26,36 @@ void load(struct Country *countryArray)
     }
 
 }
+*/
+
+
+void load(struct Country *countryArray, int numCountries)
+{
+    int yflag = 0;
+    int flag = 0;
+    int width = 15;
+    for(int i = 1; i < numCountries; ++i)
+    {
+        int x = countryArray[i].x;
+        int y = countryArray[i].y;
+        printf("%d/%d", x, y);
+        for(int i2 = 0; i2 < width; ++i2)
+        {
+            if((x == i2) && (y == yflag))
+            {
+                printf("X");
+            }
+            else
+            {
+                printf("~");
+            }
+        }
+        ++yflag;
+        puts("");
+    }
+
+}
+
 
 int main(void)
 {
@@ -152,7 +183,7 @@ int main(void)
     
     }
     printf("Number of Countries: %d\n", countrynum - 1);
-    load(countryArray);
+    load(countryArray, countrynum);
 }
 
 /*

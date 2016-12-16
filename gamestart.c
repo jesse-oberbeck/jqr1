@@ -1,10 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 /*Clears the buffer, just like it says.*/
 void clear_buffer(void)
 {
     while(getchar() != '\n');
+}
+
+
+
+int rollDice(int dieCount)
+{
+    int total = 0;
+    for(int i = 0; i < dieCount; ++i)
+    {
+        srand(time(NULL) + clock());
+        int die = rand() % 6 + 1;
+        total += die;
+    }
+    return(total);
 }
 
 
@@ -14,10 +29,12 @@ struct Player
     int playernum;
 };
 
+
+
 struct Player * makePlayers(int playernum)
 {
     struct Player *players = calloc(sizeof(struct Player), playernum);
-    for(int i = 1; i <= playernum; ++i)
+    for(int i = 1; i < playernum; ++i)
     {
         players[i].playernum = i;
         players[i].troops = 20;
@@ -49,12 +66,13 @@ int main(void)
 
     if(choiceNum == 1)
     {
-        puts("Enter number of players: ");
+        printf("Enter number of players: ");
         char playerSelection = getc(stdin);
         clear_buffer();
         int numPlayers = strtol(&playerSelection, NULL, 10);
         struct Player *players = makePlayers(numPlayers);
         printf("pnum: %d\ntroops: %d\n\n", players[2].playernum, players[2].troops);
+        printf("die roll: %d\n", rollDice(2));
     free(players);
     }
 
